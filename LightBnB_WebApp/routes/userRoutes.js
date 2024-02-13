@@ -25,8 +25,8 @@ router.post("/", (req, res) => {
 router.post("/login", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
-
   database.getUserWithEmail(email).then((user) => {
+    user = user[0];
     if (!user) {
       return res.send({ error: "no user with that id" });
     }
@@ -62,6 +62,7 @@ router.get("/me", (req, res) => {
   database
     .getUserWithId(userId)
     .then((user) => {
+      user = user[0];
       if (!user) {
         return res.send({ error: "no user with that id" });
       }
