@@ -154,7 +154,6 @@ const getAllProperties = (options, limit = 10) => {
   
     return pool.query(queryString, queryParams)
     .then((result) => {
-      console.log(result.rows)
       return result.rows;
     })
     .catch((err) => {
@@ -168,11 +167,27 @@ const getAllProperties = (options, limit = 10) => {
  * @return {Promise<{}>} A promise to the property.
  */
 const addProperty = function (property) {
-  const propertyId = Object.keys(properties).length + 1;
-  property.id = propertyId;
-  properties[propertyId] = property;
-  return Promise.resolve(property);
+  console.log(property)
+  return pool
+  .query(`INSERT INTO properties (owner_id, title, description, thumbnail_photo_url, cover_photo_url, cost_per_night, parking_spaces,
+          number_of_bathrooms, number_of_bedrooms, country, street, city, province, post_code, active) VALUES
+          ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING *`, 
+           [property.owner_id, property.title, property.description, property.thumbnail_photo_url, property.cover_photo_url, property.cost_per_night, 
+            property.parking_spaces, property.number_of_bathrooms, property.number_of_bedrooms, property.country, property.street, property.city,
+            property.province, property.post_code, true])
+  .then((result) => {
+    return result.rows;
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
+   
 };
+
+
+
+(1, 'Speed lamp', 'description', 'https://images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg?auto=compress&cs=tinysrgb&h=350', 'https://images.pexels.com/photos/2086676/pexels-photo-2086676.jpeg', 93061, 6, 4, 8, 'Canada', '536 Namsub Highway', 'Sotboske', 'Quebec', 28142, true),
+
 
 module.exports = {
   getUserWithEmail,
