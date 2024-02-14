@@ -167,7 +167,6 @@ const getAllProperties = (options, limit = 10) => {
  * @return {Promise<{}>} A promise to the property.
  */
 const addProperty = function (property) {
-  console.log(property)
   return pool
   .query(`INSERT INTO properties (owner_id, title, description, thumbnail_photo_url, cover_photo_url, cost_per_night, parking_spaces,
           number_of_bathrooms, number_of_bedrooms, country, street, city, province, post_code, active) VALUES
