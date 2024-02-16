@@ -1,5 +1,7 @@
 # LightBnB
 
+This is a student learning project focused on sql backend queries. The template is written by Lighthouse Labs to facilitate learning how to properly write sql queries and handle user data inputs to avoid attacks like sql injection
+
 ## Project Structure
 
 ```
